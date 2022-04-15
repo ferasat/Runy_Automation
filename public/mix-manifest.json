@@ -1,4 +1,8 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/theme/js/app.js": "/theme/js/app.js",
+    "/theme/css/app.css": "/theme/css/app.css",
+    "/theme/fonts/boxicons.scss": "/theme/fonts/boxicons.scss",
+    "/theme/fonts/Vazir.eot": "/theme/fonts/Vazir.eot",
+    "/theme/fonts/Vazir.ttf": "/theme/fonts/Vazir.ttf",
+    "/theme/fonts/Vazir.woff": "/theme/fonts/Vazir.woff"
 }
