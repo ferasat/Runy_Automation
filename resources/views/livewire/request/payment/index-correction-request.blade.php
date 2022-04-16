@@ -3,45 +3,60 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-                <h3 class="mb-0">Users List</h3>
+                <h3 class="mb-0">Correction Request List</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col" class="sort" data-sort="name">Name</th>
-                        <th scope="col" class="sort" data-sort="budget">Permission</th>
+                        <th scope="col" class="sort" data-sort="name">Book ID</th>
+                        <th scope="col" class="sort" data-sort="budget">Budget</th>
                         <th scope="col" class="sort" data-sort="status">Status</th>
-                        <th scope="col" class="sort" data-sort="completion">email</th>
+                        <th scope="col">Referrals</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody class="list">
-                    @foreach($users as $item)
+                    @foreach($correction_requests as $item)
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
                                     <a href="#" class="media-body">
-                                        <span class="name mb-0 text-sm">{{ $item->name .' '.$item->family }}</span>
+                                        <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
                                     </a>
                                 </div>
                             </th>
                             <td class="budget">
-                                {{ $item->levelUser . ' '.$item->levelPermission }}
+                                {{ $item->price }} {{ $item->currency }}
                             </td>
                             <td>
                       <span class="badge badge-dot mr-4">
-                        @if($item->status == 'active') <i class="bg-success"></i> @else <i class="bg-red"></i> @endif
-                        <span class="status">{{ $item->status }}</span>
+                        <i class="bg-warning"></i>
+                        <span class="status">{{ statusRPay($item->status) }}</span>
                       </span>
                             </td>
-
                             <td>
-                                <div class="d-flex align-items-center">
-                                    {{ $item -> email }}
+                                <div class="avatar-group">
+                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
+                                       data-original-title="Ryan Tompson">
+                                        <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
+                                    </a>
+                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
+                                       data-original-title="Romina Hadid">
+                                        <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
+                                    </a>
+                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
+                                       data-original-title="Alexander Smith">
+                                        <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
+                                    </a>
+                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
+                                       data-original-title="Jessica Doe">
+                                        <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
+                                    </a>
                                 </div>
                             </td>
+
                             <td class="text-right">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -49,9 +64,9 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#" wir:model="edit()">Edit</a>
-                                        <a class="dropdown-item" href="#" wir:model="delete()">Delete</a>
-                                        <a class="dropdown-item" href="#" wir:model="disable()">Disable</a>
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </div>
                             </td>

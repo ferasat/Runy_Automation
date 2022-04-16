@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('description')->comment('توضیحات')->nullable();
             $table->string('type')->comment('نوع');
             $table->bigInteger('type_id')->comment('آیدی درخواست پرداخت');
-            $table->boolean('status' )->default('0')->comment('0 چک نشده - 1 چک شده');
+            $table->boolean('status' )->default('0')->comment('0 تاییدنشده - 1 تایید شده');
             $table->timestamps();
         });
     }

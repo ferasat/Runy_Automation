@@ -13,10 +13,10 @@ class ReferralServiceProvider extends ServiceProvider
 
     public function register()
     {
-        /*$RpHelper = base_path('runy/Referral/ReferralHelper.php');
-        if (file_exists($RpHelper)){
-            require_once ($RpHelper) ;
-        }*/
+        $ReferralHelper = base_path('runy/Referral/ReferralHelper.php');
+        if (file_exists($ReferralHelper)){
+            require_once ($ReferralHelper) ;
+        }
     }
 
 
@@ -28,6 +28,6 @@ class ReferralServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(base_path('runy/Referral/views') , 'ReferralView');
 
-       // Route::middleware('web')->group(base_path('runy/Referral/Referral_route.php'));
+        Route::middleware('web')->group(base_path('runy/Referral/Referral_route.php'));
     }
 }
