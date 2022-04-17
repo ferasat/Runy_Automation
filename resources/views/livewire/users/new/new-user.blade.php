@@ -4,10 +4,13 @@
             <div class="row justify-content-center">
                 <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
-
-                        <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle" alt="">
-
+                        @if ($pic)
+                            <img src="{{ $pic->temporaryUrl() }}" class="rounded-circle" alt="">
+                        @else
+                            <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle" alt="">
+                        @endif
                     </div>
+
                 </div>
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
@@ -25,12 +28,32 @@
                         {{ $name .' '.$family }}
                     </div>
 
+                    <input type="file" wire:model="pic" class="btn">
+
                     <hr class="my-4"/>
                     <div class="">
 
                     </div>
 
                 </div>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-header">
+                <div class="card-profile-image">
+                    @if ($Signature)
+                        <img src="{{ $Signature->temporaryUrl() }}" class="rounded-circle" alt="">
+                    @else
+                        <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle" alt="">
+                    @endif
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="d-block mt-3 d-inline-block text-center">
+                    <input type="file" wire:model="Signature" class="btn pt-md-7 pt-3">
+                </div>
+
             </div>
         </div>
     </div>

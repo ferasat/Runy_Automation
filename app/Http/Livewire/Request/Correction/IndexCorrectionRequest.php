@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Request\Payment;
+namespace App\Http\Livewire\Request\Correction;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,6 +12,6 @@ class IndexCorrectionRequest extends Component
     public function render()
     {
         $correction_requests = CorrectionRequest::query()->orderByDesc('id')->paginate();
-        return view('livewire.request.payment.index-correction-request', compact('correction_requests'));
+        return view('livewire.request.correction.index-correction-request', compact('correction_requests'));
     }
 }

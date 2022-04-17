@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function editUser()
     {
-
+        return view('UsersView::editUser');
     }
 
     public function newUser()

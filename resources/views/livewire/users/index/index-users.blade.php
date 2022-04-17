@@ -49,7 +49,7 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#" wir:model="edit()">Edit</a>
+                                        <a class="dropdown-item" href="{{ asset(route('user_edit').'?user_id='.$item->id) }}" >Edit</a>
                                         <a class="dropdown-item" href="#" wir:model="delete()">Delete</a>
                                         <a class="dropdown-item" href="#" wir:model="disable()">Disable</a>
                                     </div>

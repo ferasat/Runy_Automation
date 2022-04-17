@@ -27,7 +27,7 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
-        @livewire('request.payment.index-correction-request')
+        @livewire('request.correction.index-correction-request')
         <!-- Dark table -->
 
         <!-- Footer -->

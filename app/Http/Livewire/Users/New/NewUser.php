@@ -4,10 +4,12 @@ namespace App\Http\Livewire\Users\New;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class NewUser extends Component
 {
-    public $name, $family, $cellPhone, $username, $pic, $Signature, $codeMeli, $about, $gender, $birthDate, $levelUser='Counter'
+    use WithFileUploads;
+    public $name, $family, $cellPhone, $username, $pic , $Signature, $codeMeli, $about, $gender, $birthDate, $levelUser='Counter'
     , $status = 'active', $levelPermission = '1', $email, $password;
 
     protected $rules = [
