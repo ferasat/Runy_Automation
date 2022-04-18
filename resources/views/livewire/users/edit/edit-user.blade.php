@@ -4,10 +4,15 @@
             <div class="row justify-content-center">
                 <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
-                        @if ($pic_up )
-                            <img src="{{ $pic->temporaryUrl() }}" class="rounded-circle" alt="">
+
+                        @if ($pic)
+                            @if(isset($pic_up))
+                                <img src="{{ $pic_up->temporaryUrl() }}" class="rounded-circle" alt="">
+                            @else
+                                <img src="{{ asset($pic) }}" class="rounded-circle" alt="">
+                            @endif
                         @else
-                            <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle" alt="">
+                            <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle 55" alt="">
                         @endif
                     </div>
 
@@ -28,8 +33,7 @@
                         {{ $name .' '.$family }}
                     </div>
 
-                    <input type="file" wire:model="pic" class="btn">
-
+                    <input type="file" wire:model="pic_up" class="btn">
 
                 </div>
             </div>
@@ -38,16 +42,20 @@
         <div class="card mt-5">
             <div class="card-header">
                 <div class="card-profile-image">
-                    @if ($Signature_up)
-                        <img src="{{ $Signature->temporaryUrl() }}" class="rounded-circle" alt="">
+                    @if ($Signature)
+                        @if(isset($Signature_up))
+                            <img src="{{ $Signature_up->temporaryUrl() }}" class="rounded-circle" alt="">
+                        @else
+                            <img src="{{ asset($Signature) }}" class="rounded-circle" alt="">
+                        @endif
                     @else
-                        <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle" alt="">
+                        No Signature
                     @endif
                 </div>
             </div>
             <div class="card-body ">
                 <div class="d-block mt-3 d-inline-block text-center">
-                    <input type="file" wire:model="Signature" class="btn pt-md-7 pt-3">
+                    <input type="file" wire:model="Signature_up" class="btn pt-md-7 pt-3">
                 </div>
 
             </div>
@@ -61,7 +69,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="post" action="{{ route('profile.update') }}" autocomplete="off">
+                <div>
                     @csrf
                     @method('put')
 
@@ -80,7 +88,10 @@
                     <div class="pl-lg-4">
                         <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                            <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $user->name) }}" required autofocus>
+                            <input type="text" name="name" id="input-name"
+                                   class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                   placeholder="{{ __('Name') }}" value="{{ old('name', $user->name) }}" required
+                                   autofocus>
 
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -90,7 +101,10 @@
                         </div>
                         <div class="form-group{{ $errors->has('family') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-name">{{ __('Last name') }}</label>
-                            <input type="text" name="family" id="input-name" class="form-control form-control-alternative{{ $errors->has('family') ? ' is-invalid' : '' }}" placeholder="{{ __('Last name') }}" value="{{ old('family', $user->family) }}" required autofocus>
+                            <input type="text" name="family" id="input-name"
+                                   class="form-control form-control-alternative{{ $errors->has('family') ? ' is-invalid' : '' }}"
+                                   placeholder="{{ __('Last name') }}" value="{{ old('family', $user->family) }}"
+                                   required autofocus>
 
                             @if ($errors->has('family'))
                                 <span class="invalid-feedback" role="alert">
@@ -98,9 +112,91 @@
                                         </span>
                             @endif
                         </div>
+
+                        <div class="form-group{{ $errors->has('cellPhone') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="cellPhone">{{ __('Cell Phone') }}</label>
+                            <input type="text" wire:model.lazy="cellPhone" id="cellPhone"
+                                   value="{{ old('cellPhone' , $user->cellPhone) }}"
+                                   class="form-control form-control-alternative{{ $errors->has('cellPhone') ? ' is-invalid' : '' }}"
+                                   autofocus>
+
+                            @error('cellPhone')
+                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('cellPhone') }}</strong>
+                                        </span>
+                            @enderror
+                        </div>
+                        <div class="form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="gender">{{ __('Gender') }}</label>
+                            <select wire:model.lazy="gender" id="gender"
+                                    class="form-control form-control-alternative{{ $errors->has('gender') ? ' is-invalid' : '' }}">
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                            </select>
+
+                            @error('gender')
+                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('gender') }}</strong>
+                                        </span>
+                            @enderror
+                        </div>
+                        <div class="form-group{{ $errors->has('levelUser') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="levelUser">{{ __('Level User') }}</label>
+                            <select wire:model.lazy="levelUser" id="levelUser"
+                                    class="form-control form-control-alternative{{ $errors->has('levelUser') ? ' is-invalid' : '' }}">
+                                <option value="Admin">Admin</option>
+                                <option value="Counter">Counter</option>
+                                <option value="salesManager">Sales Manager</option>
+                                <option value="Accountants">Accountants</option>
+                            </select>
+
+                            @error('levelUser')
+                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('levelUser') }}</strong>
+                                        </span>
+                            @enderror
+                        </div>
+                        <div class="form-group{{ $errors->has('levelPermission') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="levelPermission">{{ __('Level Permission') }}</label>
+                            <select wire:model.lazy="levelPermission" id="levelPermission"
+                                    class="form-control form-control-alternative{{ $errors->has('levelPermission') ? ' is-invalid' : '' }}">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+
+                            @error('levelPermission')
+                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('levelPermission') }}</strong>
+                                        </span>
+                            @enderror
+                        </div>
+                        <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
+                            <label class="form-control-label" for="status">{{ __('Status') }}</label>
+                            <select wire:model.lazy="status" id="status"
+                                    class="form-control form-control-alternative{{ $errors->has('status') ? ' is-invalid' : '' }}">
+                                <option value="active">Active</option>
+                                <option value="disabled">Disabled</option>
+                            </select>
+
+                            @error('status')
+                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('status') }}</strong>
+                                        </span>
+                            @enderror
+                        </div>
+
                         <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
-                            <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', $user->email) }}" required>
+                            <input type="email" name="email" id="input-email"
+                                   class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                   placeholder="{{ __('Email') }}" value="{{ old('email', $user->email) }}" required>
 
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
@@ -110,11 +206,12 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                            <button type="submit" class="btn btn-success mt-4"
+                                    wire:click.privent="save()">{{ __('Save') }}</button>
                         </div>
                     </div>
-                </form>
-                <hr class="my-4" />
+                </div>
+                <hr class="my-4"/>
                 <form method="post" action="{{ route('profile.password') }}" autocomplete="off">
                     @csrf
                     @method('put')
@@ -132,8 +229,11 @@
 
                     <div class="pl-lg-4">
                         <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-current-password">{{ __('Current Password') }}</label>
-                            <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Current Password') }}" value="" required>
+                            <label class="form-control-label"
+                                   for="input-current-password">{{ __('Current Password') }}</label>
+                            <input type="password" name="old_password" id="input-current-password"
+                                   class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}"
+                                   placeholder="{{ __('Current Password') }}" value="" required>
 
                             @if ($errors->has('old_password'))
                                 <span class="invalid-feedback" role="alert">
@@ -143,7 +243,9 @@
                         </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
-                            <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" required>
+                            <input type="password" name="password" id="input-password"
+                                   class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                   placeholder="{{ __('New Password') }}" value="" required>
 
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
@@ -152,8 +254,11 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <label class="form-control-label" for="input-password-confirmation">{{ __('Confirm New Password') }}</label>
-                            <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm New Password') }}" value="" required>
+                            <label class="form-control-label"
+                                   for="input-password-confirmation">{{ __('Confirm New Password') }}</label>
+                            <input type="password" name="password_confirmation" id="input-password-confirmation"
+                                   class="form-control form-control-alternative"
+                                   placeholder="{{ __('Confirm New Password') }}" value="" required>
                         </div>
 
                         <div class="text-center">
