@@ -30,10 +30,7 @@
 
                     <input type="file" wire:model="pic" class="btn">
 
-                    <hr class="my-4"/>
-                    <div class="">
-
-                    </div>
+                    <input type="button" wire:click.privent="upload_pic()" class="btn d-block mt-3" value="upload">
 
                 </div>
             </div>

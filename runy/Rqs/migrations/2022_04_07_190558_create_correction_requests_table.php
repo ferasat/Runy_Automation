@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('book_id');
+            $table->date('date');
             $table->string('passenger_name');
             $table->string('supplier')->nullable();
             $table->string('supplier_rate')->nullable();
@@ -29,6 +30,8 @@ return new class extends Migration
             $table->string('accounting_signature')->nullable();
             $table->bigInteger('accounting_user_id')->nullable();
             $table->string('status')->nullable();
+            $table->string('description')->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
         });
     }

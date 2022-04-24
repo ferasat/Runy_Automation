@@ -11,7 +11,7 @@
                     <thead class="thead-light">
                     <tr>
                         <th scope="col" class="sort" data-sort="name">Book ID</th>
-                        <th scope="col" class="sort" data-sort="budget">Budget</th>
+                        <th scope="col" class="sort" data-sort="budget">Passenger</th>
                         <th scope="col" class="sort" data-sort="status">Status</th>
                         <th scope="col">Referrals</th>
                         <th scope="col"></th>
@@ -22,18 +22,27 @@
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
-                                    <a href="#" class="media-body">
+                                    <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal">
                                         <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
                                     </a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="book_id_Modal" tabindex="-1" role="dialog"
+                                         aria-labelledby="book_id_ModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            @livewire('request.correction.show-correction-request' , compact('item'))
+
+                                        </div>
+                                    </div>
                                 </div>
                             </th>
                             <td class="budget">
-                                {{ $item->price }} {{ $item->currency }}
+                                {{ $item->passenger_name }}
                             </td>
                             <td>
                       <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i>
-                        <span class="status">{{ statusRPay($item->status) }}</span>
+                        <i class="bg-success"></i>
+                        <span class="status">{{ $item->status }}</span>
                       </span>
                             </td>
                             <td>
@@ -41,18 +50,6 @@
                                     <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
                                        data-original-title="Ryan Tompson">
                                         <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Romina Hadid">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Alexander Smith">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Jessica Doe">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
                                     </a>
                                 </div>
                             </td>
@@ -64,9 +61,8 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item" href="#">Copy</a>
+                                        <a class="dropdown-item" href="#">See</a>
                                     </div>
                                 </div>
                             </td>

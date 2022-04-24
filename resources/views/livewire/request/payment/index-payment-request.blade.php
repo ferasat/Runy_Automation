@@ -11,7 +11,7 @@
                     <thead class="thead-light">
                     <tr>
                         <th scope="col" class="sort" data-sort="name">Book ID</th>
-                        <th scope="col" class="sort" data-sort="budget">Budget</th>
+                        <th scope="col" class="sort" data-sort="budget">Price</th>
                         <th scope="col" class="sort" data-sort="status">Status</th>
                         <th scope="col">Users</th>
                         <th scope="col" class="sort" data-sort="completion">Completion</th>
@@ -23,9 +23,20 @@
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
-                                    <a href="#" class="media-body">
+                                    <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal">
                                         <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
                                     </a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="book_id_Modal" tabindex="-1" role="dialog"
+                                         aria-labelledby="book_id_ModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            @livewire('request.payment.show-payment-request' , compact('item'))
+
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </th>
                             <td class="budget">
@@ -43,28 +54,16 @@
                                        data-original-title="Ryan Tompson">
                                         <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
                                     </a>
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Romina Hadid">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Alexander Smith">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                    </a>
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Jessica Doe">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
-                                    </a>
                                 </div>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <span class="completion mr-2">60%</span>
+                                    <span class="completion mr-2">20%</span>
                                     <div>
                                         <div class="progress">
                                             <div class="progress-bar bg-warning" role="progressbar"
-                                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 60%;"></div>
+                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                 style="width: 20%;"></div>
                                         </div>
                                     </div>
                                 </div>

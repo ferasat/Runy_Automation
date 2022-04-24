@@ -133,12 +133,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ asset('/') }}">
+                    <a class="nav-link" href="{{ asset(route('leave-forms.index')) }}">
                         <i class="ni ni-planet text-blue"></i> {{ __('Leave Form') }}
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('map') }}">
+                    <a class="nav-link" href="{{ route('overtime-forms.index') }}">
                         <i class="ni ni-pin-3 text-orange"></i> {{ __('Overtime Form') }}
                     </a>
                 </li>

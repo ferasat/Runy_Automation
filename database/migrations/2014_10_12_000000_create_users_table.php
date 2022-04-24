@@ -41,7 +41,7 @@ return new class extends Migration
             'status' => 'active' ,
             'levelUser' => 'SAdmin' ,
             'levelPermission' => '10' ,
-            'pic' => 'theme/img/admin.jpg' ,
+            'pic' => 'img/admin.jpg' ,
             'cellPhone' => '9372088771' ,
             'email' => 'admin@tarahsite.net' ,
             'password' => bcrypt('@dmiN98A' ),

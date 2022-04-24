@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Rp\Models\RpPart;
 use Rp\Models\UserRole;
 use Rp\Models\UserRolePermission;
@@ -34,4 +35,17 @@ function accessUser($user_id , $slug){
         }
     }
 
+}
+
+function is_admin($id){
+    if (Auth::user()->levelUser == 'Admin' or Auth::user()->levelUser == 'SAdmin')
+        return true;
+    else return false;
+}
+
+function cancelHotel($id)
+{
+    if ($id == 1)
+        return 'Yes';
+    else return 'No';
 }

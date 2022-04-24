@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Rqs\Controllers;
 
-use App\Models\Rqs;
+use App\Http\Controllers\Controller;
+use Rqs\Models\Rqs;
 use Illuminate\Http\Request;
 
 class RqsController extends Controller

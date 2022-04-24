@@ -1,14 +1,4 @@
-@php
-    $title = 'Dashboard';
-    $description = 'dashboard';
-@endphp
-@extends('layout.main')
-@section('css')
-
-@endsection
-@section('js')
-<script src="{{ asset('theme/js/dashboards-analytics.js') }}"></script>
-@endsection
+@extends('layouts.app', ['title' => __(' ')])
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">

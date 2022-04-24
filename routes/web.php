@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,43 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
 
+
+
+Route::group(['prefix' => '/Artisan'], function () {
+    Route::get('/clear-cache', function () {
+        $exitCode = Artisan::call('cache:clear');
+        return '<h1>Cache facade value cleared</h1>';
+    });
+
+    Route::get('/migrate', function () {
+        $exitCode = Artisan::call('migrate', [
+            '--force' => true,
+        ]);
+        return '<h1>دیتابیس ساخته شد</h1>';
+    });
+
+//Clear Route cache:
+    Route::get('/route-clear', function () {
+        $exitCode = Artisan::call('route:clear');
+        return '<h1>Route cache cleared</h1>';
+    });
+
+//Clear View cache:
+    Route::get('/view-clear', function () {
+        $exitCode = Artisan::call('view:clear');
+        return '<h1>View cache cleared</h1>';
+    });
+
+//Clear Config cache:
+    Route::get('/config-cache', function () {
+        $exitCode = Artisan::call('config:cache');
+        return '<h1>Clear Config cleared</h1>';
+    });
+    Route::get('/clear-cache-all', function () {
+
+        Artisan::call('cache:clear');
+        dd("Cache Clear All");
+
+    });
+
+});

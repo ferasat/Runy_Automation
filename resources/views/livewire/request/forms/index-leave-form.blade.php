@@ -3,54 +3,57 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-                <h3 class="mb-0">Users List</h3>
+                <h3 class="mb-0">Correction Request List</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col" class="sort" data-sort="name">Name</th>
-                        <th scope="col" class="sort" data-sort="budget">Permission</th>
+                        <th scope="col" class="sort" data-sort="name">Book ID</th>
+                        <th scope="col" class="sort" data-sort="budget">Passenger</th>
                         <th scope="col" class="sort" data-sort="status">Status</th>
-                        <th scope="col" class="sort" data-sort="completion">email</th>
-                        <th scope="col" class="sort" data-sort="completion">picture</th>
+                        <th scope="col">Referrals</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody class="list">
-                    @foreach($users as $item)
+                    @foreach($forms as $item)
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
-                                    <a href="#" class="media-body">
-                                        <span class="name mb-0 text-sm">{{ $item->name .' '.$item->family }}</span>
+                                    <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal">
+                                        <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
                                     </a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="book_id_Modal" tabindex="-1" role="dialog"
+                                         aria-labelledby="book_id_ModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            @livewire('request.correction.show-correction-request' , compact('item'))
+
+                                        </div>
+                                    </div>
                                 </div>
                             </th>
                             <td class="budget">
-                                {{ $item->levelUser . ' '.$item->levelPermission }}
+                                {{ $item->passenger_name }}
                             </td>
                             <td>
-                                  <span class="badge badge-dot mr-4">
-                                    @if($item->status == 'active') <i class="bg-success"></i> @else <i class="bg-red"></i> @endif
-                                    <span class="status">{{ $item->status }}</span>
-                                  </span>
-                            </td>
-
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    {{ $item -> email }}
-                                </div>
+                      <span class="badge badge-dot mr-4">
+                        <i class="bg-success"></i>
+                        <span class="status">{{ $item->status }}</span>
+                      </span>
                             </td>
                             <td>
                                 <div class="avatar-group">
                                     <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="{{ $item->name .' '.$item->family }}">
-                                        <img alt="Image placeholder" src="{{ asset($item -> pic) }}">
+                                       data-original-title="Ryan Tompson">
+                                        <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
                                     </a>
                                 </div>
                             </td>
+
                             <td class="text-right">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -58,9 +61,8 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ asset(route('user_edit').'?user_id='.$item->id) }}" >Edit</a>
-                                        <a class="dropdown-item" href="#" wir:model="delete()">Delete</a>
-                                        <a class="dropdown-item" href="#" wir:model="disable()">Disable</a>
+                                        <a class="dropdown-item" href="#">Copy</a>
+                                        <a class="dropdown-item" href="#">See</a>
                                     </div>
                                 </div>
                             </td>

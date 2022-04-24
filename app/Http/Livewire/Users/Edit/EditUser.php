@@ -43,22 +43,46 @@ class EditUser extends Component
 
     }
 
+    public function upload_pic()
+    {
+        $this->validate([
+            'pic_up' => 'image|max:1024', // 1MB Max
+        ]);
+
+        $url = 'storage/' . $this->pic_up->store('uploads/users_' . $this->user_id, 'public');
+        //dd($url);
+        return $url;
+    }
+
+    public function upload_Signature()
+    {
+        $this->validate([
+            'Signature_up' => 'image|max:1024', // 1MB Max
+        ]);
+
+        $url = 'storage/' . $this->Signature_up->store('uploads/Signature_' . $this->user_id, 'public');
+        return $url;
+    }
+
     public function save()
     {
+        //dd('Asd');
         $this->user->name = $this->name;
         $this->user->family = $this->family;
         $this->user->cellPhone = $this->cellPhone;
-        $this->user->pic = $this->pic_up->store('uploads/users/'.$this->user_id);
-        $this->user->Signature = $this->Signature_up->store('uploads/Signature/'.$this->user_id);
+        if ($this->pic_up !== null) {
+            $this->user->pic = $this->upload_pic();
+        }
+        if ($this->Signature_up !== null) {
+            $this->user->Signature = $this->upload_Signature();
+        }
         $this->user->email = $this->email;
-        $this->user->password = $this->password;
-        $this->user->status = $this->status ;
+//        $this->user->password = $this->password;
+        $this->user->status = $this->status;
         $this->user->levelPermission = $this->levelPermission;
-        $this->user->levelUser = $this->levelUser ;
-        $this->user->gender = $this->gender ;
-
-        if ($this->user->save())
-            $this->redirect(route('users.index'));
-        else dd($this->user->save());
+        $this->user->levelUser = $this->levelUser;
+        $this->user->gender = $this->gender;
+        $this->user->save();
+        $this->redirect(route('users.index'));
     }
 }

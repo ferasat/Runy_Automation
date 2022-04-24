@@ -4,16 +4,20 @@
             <div class="row justify-content-center">
                 <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
-
-                        @if ($pic)
+                        @if ($pic !== null )
                             @if(isset($pic_up))
                                 <img src="{{ $pic_up->temporaryUrl() }}" class="rounded-circle" alt="">
                             @else
                                 <img src="{{ asset($pic) }}" class="rounded-circle" alt="">
                             @endif
                         @else
-                            <img src="{{ asset('img/avatar-1.png') }}" class="rounded-circle 55" alt="">
+                            @if(isset($pic_up))
+                                <img src="{{ $pic_up->temporaryUrl() }}" class="rounded-circle" alt="">
+                            @else
+                                No pic
+                            @endif
                         @endif
+
                     </div>
 
                 </div>
@@ -42,15 +46,20 @@
         <div class="card mt-5">
             <div class="card-header">
                 <div class="card-profile-image">
-                    @if ($Signature)
+                    @if ($Signature !== null )
                         @if(isset($Signature_up))
                             <img src="{{ $Signature_up->temporaryUrl() }}" class="rounded-circle" alt="">
                         @else
                             <img src="{{ asset($Signature) }}" class="rounded-circle" alt="">
                         @endif
                     @else
-                        No Signature
+                        @if(isset($Signature_up))
+                            <img src="{{ $Signature_up->temporaryUrl() }}" class="rounded-circle" alt="">
+                        @else
+                            No Signature
+                        @endif
                     @endif
+
                 </div>
             </div>
             <div class="card-body ">
