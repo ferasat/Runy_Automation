@@ -1,15 +1,13 @@
 <?php
 
-use Rqs\Controllers\CorrectionRequestController;
-use Rqs\Controllers\PaymentRequestController;
+use Referral\Controllers\ReferralController;
 use Illuminate\Support\Facades\Route;
 
 
 
 ///  -------------- For UserAdmin ----------------
-Route::prefix('/dashboard/rqs')->group(function () {
-    Route::get('/payments', [PaymentRequestController::class ,'index'])->name('payments.index');
-    Route::get('/payments/new', [PaymentRequestController::class ,'create'])->name('payment.r.create');
+Route::prefix('/dashboard/referral')->group(function () {
+    Route::get('/index', [ReferralController::class ,'index'])->name('referral.index');
 
-    Route::get('/corrections', [CorrectionRequestController::class ,'index'])->name('corrections.index');
+
 });

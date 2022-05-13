@@ -3,16 +3,16 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-                <h3 class="mb-0">Correction Request List</h3>
+                <h3 class="mb-0">Leave Forms List</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col" class="sort" data-sort="name">Book ID</th>
-                        <th scope="col" class="sort" data-sort="budget">Passenger</th>
-                        <th scope="col" class="sort" data-sort="status">Status</th>
+                        <th scope="col" class="sort" data-sort="name">ID</th>
+                        <th scope="col" class="sort" data-sort="budget">Start</th>
+                        <th scope="col" class="sort" data-sort="status">End</th>
                         <th scope="col">Referrals</th>
                         <th scope="col"></th>
                     </tr>
@@ -23,7 +23,7 @@
                             <th scope="row">
                                 <div class="media align-items-center">
                                     <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal">
-                                        <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
+                                        <span class="name mb-0 text-sm">{{ $item->id }}</span>
                                     </a>
 
                                     <!-- Modal -->
@@ -36,15 +36,15 @@
                                     </div>
                                 </div>
                             </th>
+
                             <td class="budget">
-                                {{ $item->passenger_name }}
+                                {{ $item->leave_start }}
                             </td>
-                            <td>
-                      <span class="badge badge-dot mr-4">
-                        <i class="bg-success"></i>
-                        <span class="status">{{ $item->status }}</span>
-                      </span>
+
+                            <td class="budget">
+                                {{ $item->leave_end }}
                             </td>
+
                             <td>
                                 <div class="avatar-group">
                                     <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"

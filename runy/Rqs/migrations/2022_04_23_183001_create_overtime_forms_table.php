@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('overtime_forms', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->time('start');
+            $table->time('end');
+            $table->string('duration');
+            $table->string('for')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

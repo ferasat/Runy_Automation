@@ -11,12 +11,12 @@ class ReferralController extends Controller
 
     public function index()
     {
-        //
+        return view('ReferralView::indexReferral');
     }
 
-    public function create()
+    public function create($from , $to , $description , $type , $type_id )
     {
-        //
+        dd($from);
     }
 
 

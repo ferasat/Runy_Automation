@@ -6,24 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('leave_forms', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->date('leave_start');
+            $table->date('leave_end');
+            $table->enum('leave_type' , ['Vacation','Sick','Quitting','Other']);
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('leave_forms');

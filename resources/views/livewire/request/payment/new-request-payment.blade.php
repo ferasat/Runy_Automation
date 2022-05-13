@@ -145,6 +145,19 @@
 
         <div class="card-footer">
             <div class="btn btn-success" wire:click.privent="save()">Approve</div>
+            <div class="form-group row">
+                <label for="example-text-input"
+                       class="col-md-3 col-form-label form-control-label"
+                       wire:model.lazy="currency">Referral To</label>
+                <div class="col-md-9">
+                    <select class="form-control" wire:model.lazy="to_id">
+                        @foreach($users as $user)
+                        <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
+                        @endforeach
+                    </select>
+                    @error('currency') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+            </div>
         </div>
     </div>
 

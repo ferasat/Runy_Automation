@@ -2,15 +2,19 @@
 
 namespace App\Http\Livewire\Request\Payment;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Referral\Controllers\ReferralController;
 use Rqs\Models\PaymentRequest;
+use Referral\Models\Referral;
 
 class NewRequestPayment extends Component
 {
     public $price ,$currency='UAE Dirham' , $book_id , $getter , $passenger_name='' , $person_id , $cause, $deadline, $name_bank, $number_account_bank,
         $number_cart_bank, $account_owner_bank, $description , $admin_approval=0 , $type_spent , $status=1 , $signature_1 ,
-        $signature_2 , $signature_3 , $signature_4, $signature_5;
+        $signature_2 , $signature_3 , $signature_4, $signature_5 , $to_id;
 
     protected $rules = [
         'price' => 'required',
@@ -21,12 +25,26 @@ class NewRequestPayment extends Component
 
     public function render()
     {
-        return view('livewire.request.payment.new-request-payment');
+        $users = User::all();
+        return view('livewire.request.payment.new-request-payment' , compact('users'));
     }
 
     public function updated()
     {
 
+    }
+
+    public function createReferral($from , $to , $description , $type , $type_id )
+    {
+        $new = new Referral() ;
+        $new -> from = $from ;
+        $new -> signature_from = userSignature($from) ;
+        $new -> to = $to ;
+        $new -> signature_to = userSignature($to) ;
+        $new -> description = $description ;
+        $new -> type = $type ;
+        $new -> type_id = $type_id ;
+        $new -> save();
     }
 
     public function save(){
@@ -44,8 +62,22 @@ class NewRequestPayment extends Component
         $newPay->number_account_bank = $this->number_account_bank ;
         $newPay->account_owner_bank = $this->account_owner_bank ;
         $newPay->person_id = $this->person_id ;
+        $newPay->description = $this->description ;
         $newPay->status = $this->status ;
+        //dd($newPay);
         if ($newPay->save()){
+
+            $new = new Referral() ;
+            $new -> from = Auth::id() ;
+            $new -> signature_from = userSignature(Auth::id()) ;
+            $new -> to = $this->to_id ;
+            $new -> signature_to = userSignature($this->to_id) ;
+            $new -> description = $this->description ;
+            $new -> type = 'pay' ;
+            $new -> type_id = $newPay->id ;
+            $new -> save();
+            //dd('dd');
+
             $this->redirect(route('payments.index'));
         }else{
             dd($newPay->save());

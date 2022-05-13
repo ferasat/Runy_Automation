@@ -12,20 +12,22 @@ class EditUser extends Component
 
     public $user_id, $user;
     protected $queryString = ['user_id'];
-    public $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null, $codeMeli, $about, $gender, $birthDate, $levelUser = 'Counter'
-    , $status = 'active', $levelPermission = '1', $email, $password;
+    public $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null, $codeMeli, $about,
+        $gender, $birthDate, $levelUser = 'Counter'
+    , $status = 'active', $levelPermission = '1', $email, $password, $password_confirmation;
 
 
     public function mount()
     {
         $this->user = User::query()->findOrFail($this->user_id);
+        //dd($this->user);
         $this->name = $this->user->name;
+        //dd($this->name);
         $this->family = $this->user->family;
         $this->cellPhone = $this->user->cellPhone;
         $this->pic = $this->user->pic;
         $this->Signature = $this->user->Signature;
         $this->email = $this->user->email;
-        $this->password = $this->user->password;
         $this->status = $this->user->status;
         $this->levelPermission = $this->user->levelPermission;
         $this->levelUser = $this->user->levelUser;
@@ -40,7 +42,12 @@ class EditUser extends Component
 
     public function updated()
     {
-
+        // dd($this->password);
+        if ($this->password !== null or $this->password !== ''){
+            if ($this->password !== $this->password_confirmation ){
+                session()->flash('password_status' , 'The password does not match');
+            }
+        }
     }
 
     public function upload_pic()
@@ -67,22 +74,39 @@ class EditUser extends Component
     public function save()
     {
         //dd('Asd');
-        $this->user->name = $this->name;
-        $this->user->family = $this->family;
-        $this->user->cellPhone = $this->cellPhone;
+        $user = User::query()->findOrFail($this->user_id);
+        //dd($this->name, $this->family);
+        $user->name = $this->name;
+        $user->family = $this->family;
+        $user->cellPhone = $this->cellPhone;
         if ($this->pic_up !== null) {
-            $this->user->pic = $this->upload_pic();
+            $user->pic = $this->upload_pic();
         }
         if ($this->Signature_up !== null) {
-            $this->user->Signature = $this->upload_Signature();
+            $user->Signature = $this->upload_Signature();
         }
-        $this->user->email = $this->email;
+        //dd($this->email);
+        $user->email = $this->email;
 //        $this->user->password = $this->password;
-        $this->user->status = $this->status;
-        $this->user->levelPermission = $this->levelPermission;
-        $this->user->levelUser = $this->levelUser;
-        $this->user->gender = $this->gender;
-        $this->user->save();
+        $user->status = $this->status;
+        $user->levelPermission = $this->levelPermission;
+        $user->levelUser = $this->levelUser;
+        $user->gender = $this->gender;
+        $user->save();
         $this->redirect(route('users.index'));
+    }
+
+    public function changePass($user_id)
+    {
+        if ($this->password !== $this->password_confirmation ){
+            session()->flash('password_status' , 'The password does not match');
+        }else{
+            $user = User::query()->findOrFail($user_id);
+            $user->password = $this->password ;
+            $user->save();
+
+            session()->flash('password_status' , 'The password does not match');
+        }
+
     }
 }

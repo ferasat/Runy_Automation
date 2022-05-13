@@ -95,12 +95,11 @@
 
 
                     <div class="pl-lg-4">
+
                         <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                            <input type="text" name="name" id="input-name"
-                                   class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                   placeholder="{{ __('Name') }}" value="{{ old('name', $user->name) }}" required
-                                   autofocus>
+                            <label class="form-control-label" for="name">{{ __('Name') }}:{{ $name }}</label>
+                            <input type="text" wir:model.lazy="name" value="{{ $name }}"
+                                   class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" required >
 
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -109,11 +108,10 @@
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('family') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-name">{{ __('Last name') }}</label>
-                            <input type="text" name="family" id="input-name"
+                            <label class="form-control-label" for="family">{{ __('Last name') }}</label>
+                            <input type="text" name="family" value="{{$family}}"
                                    class="form-control form-control-alternative{{ $errors->has('family') ? ' is-invalid' : '' }}"
-                                   placeholder="{{ __('Last name') }}" value="{{ old('family', $user->family) }}"
-                                   required autofocus>
+                                    wir:model.lazy="family" required autofocus>
 
                             @if ($errors->has('family'))
                                 <span class="invalid-feedback" role="alert">
@@ -125,7 +123,6 @@
                         <div class="form-group{{ $errors->has('cellPhone') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="cellPhone">{{ __('Cell Phone') }}</label>
                             <input type="text" wire:model.lazy="cellPhone" id="cellPhone"
-                                   value="{{ old('cellPhone' , $user->cellPhone) }}"
                                    class="form-control form-control-alternative{{ $errors->has('cellPhone') ? ' is-invalid' : '' }}"
                                    autofocus>
 
@@ -203,9 +200,9 @@
 
                         <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
-                            <input type="email" name="email" id="input-email"
+                            <input type="email" name="email" value="{{$email}}"
                                    class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                   placeholder="{{ __('Email') }}" value="{{ old('email', $user->email) }}" required>
+                                   placeholder="{{ __('Email') }}" wir:model.lazy="email" required>
 
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
@@ -221,9 +218,8 @@
                     </div>
                 </div>
                 <hr class="my-4"/>
-                <form method="post" action="{{ route('profile.password') }}" autocomplete="off">
+                <form  autocomplete="off">
                     @csrf
-                    @method('put')
 
                     <h6 class="heading-small text-muted mb-4">{{ __('Password') }}</h6>
 
@@ -237,24 +233,12 @@
                     @endif
 
                     <div class="pl-lg-4">
-                        <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
-                            <label class="form-control-label"
-                                   for="input-current-password">{{ __('Current Password') }}</label>
-                            <input type="password" name="old_password" id="input-current-password"
-                                   class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}"
-                                   placeholder="{{ __('Current Password') }}" value="" required>
 
-                            @if ($errors->has('old_password'))
-                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('old_password') }}</strong>
-                                        </span>
-                            @endif
-                        </div>
                         <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
-                            <input type="password" name="password" id="input-password"
+                            <label class="form-control-label" for="password">{{ __('New Password') }}</label>
+                            <input type="password" name="password" id="password" wir:model="password"
                                    class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                   placeholder="{{ __('New Password') }}" value="" required>
+                                   placeholder="{{ __('New Password') }}"  required>
 
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
@@ -264,14 +248,14 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label"
-                                   for="input-password-confirmation">{{ __('Confirm New Password') }}</label>
-                            <input type="password" name="password_confirmation" id="input-password-confirmation"
+                                   for="password-confirmation">{{ __('Confirm New Password') }}</label>
+                            <input type="password" name="password_confirmation" id="password-confirmation"
                                    class="form-control form-control-alternative"
                                    placeholder="{{ __('Confirm New Password') }}" value="" required>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success mt-4">{{ __('Change password') }}</button>
+                            <button type="submit" wire:click.privent="changePass({{$user_id}})" class="btn btn-success mt-4">{{ __('Change password') }}</button>
                         </div>
                     </div>
                 </form>

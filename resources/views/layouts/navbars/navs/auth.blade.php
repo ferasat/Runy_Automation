@@ -43,7 +43,7 @@
                         <i class="ni ni-notification-70"></i>
                         <span>{{ __('Notification') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ asset(route('referral.index')) }}" class="dropdown-item">
                         <i class="fa-regular fa-share-from-square"></i>
                         <span>{{ __('Referral') }}</span>
                     </a>

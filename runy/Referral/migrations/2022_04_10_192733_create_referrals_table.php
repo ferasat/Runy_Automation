@@ -11,11 +11,13 @@ return new class extends Migration
         Schema::create('referrals', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('from')->comment('ایدی کاربر ارسال کننده درخواست');
+            $table->string('signature_from')->comment('امضای در خواست کننده');
             $table->bigInteger('to')->comment('ایدی کاربر دریافت کننده درخواست');
+            $table->string('signature_to')->comment('امضای دریافت کننده');
             $table->string('description')->comment('توضیحات')->nullable();
             $table->string('type')->comment('نوع');
-            $table->bigInteger('type_id')->comment('آیدی درخواست پرداخت');
-            $table->boolean('status' )->default('0')->comment('0 تاییدنشده - 1 تایید شده');
+            $table->bigInteger('type_id')->comment('آیدی نوع');
+            $table->boolean('status' )->nullable()->comment('0 تاییدنشده - 1 تایید شده');
             $table->timestamps();
         });
     }

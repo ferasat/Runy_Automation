@@ -85,6 +85,7 @@ return [
         Rqs\RqsServiceProvider::class,
         Users\UsersServiceProvider::class,
         Rp\RpServiceProvider::class,
+        Referral\ReferralServiceProvider::class,
         /*
          * Application Service Providers...
          */
