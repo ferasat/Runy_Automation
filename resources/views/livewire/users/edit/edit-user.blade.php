@@ -79,9 +79,6 @@
             </div>
             <div class="card-body">
                 <div>
-                    @csrf
-                    @method('put')
-
                     <h6 class="heading-small text-muted mb-4">{{ __('User information') }}</h6>
 
                     @if (session('status'))
@@ -95,11 +92,13 @@
 
 
                     <div class="pl-lg-4">
+                        <input type="text" wir:model="name"
+                               class="form-control " required >
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                        <div class="form-group">
                             <label class="form-control-label" for="name">{{ __('Name') }}:{{ $name }}</label>
-                            <input type="text" wir:model.lazy="name" value="{{ $name }}"
-                                   class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" required >
+                            <input type="text" wir:model="name"
+                                   class="form-control " required >
 
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -218,7 +217,7 @@
                     </div>
                 </div>
                 <hr class="my-4"/>
-                <form  autocomplete="off">
+                <div  autocomplete="off">
                     @csrf
 
                     <h6 class="heading-small text-muted mb-4">{{ __('Password') }}</h6>
@@ -231,12 +230,20 @@
                             </button>
                         </div>
                     @endif
+                    @if (session('password_not'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('password_not') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
 
                     <div class="pl-lg-4">
 
                         <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="password">{{ __('New Password') }}</label>
-                            <input type="password" name="password" id="password" wir:model="password"
+                            <input type="password" id="password" wir:model="password"
                                    class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                    placeholder="{{ __('New Password') }}"  required>
 
@@ -249,16 +256,16 @@
                         <div class="form-group">
                             <label class="form-control-label"
                                    for="password-confirmation">{{ __('Confirm New Password') }}</label>
-                            <input type="password" name="password_confirmation" id="password-confirmation"
+                            <input type="password" wir:model="password_confirmation" id="password-confirmation"
                                    class="form-control form-control-alternative"
-                                   placeholder="{{ __('Confirm New Password') }}" value="" required>
+                                   placeholder="{{ __('Confirm New Password') }}" required>
                         </div>
 
                         <div class="text-center">
                             <button type="submit" wire:click.privent="changePass({{$user_id}})" class="btn btn-success mt-4">{{ __('Change password') }}</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Users\Index;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,8 +23,12 @@ class IndexUsers extends Component
     }
     public function delete($id)
     {
-        User::query()->findOrFail($id)->delete();
-        $this->render();
+        if (Auth::user()->levelUser == 'Admin' or Auth::user()->levelUser == 'SAdmin'){
+            User::query()->findOrFail($id)->delete();
+            $this->render();
+            session()->flash('delete' , 'Delete User ');
+        }
+
     }
     public function disable($id)
     {

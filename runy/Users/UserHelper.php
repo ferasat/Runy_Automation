@@ -28,9 +28,9 @@ function userSignature ($id) {
 function userPic ($id) {
     $user = userInfo($id);
     if ($user == null){
-        $signature = 'بدون نام';
+        $pic = 'بدون نام';
     }else{
-        $signature = $user->Signature ;
+        $pic = $user->pic ;
     }
-    return $signature ;
+    return $pic ;
 }

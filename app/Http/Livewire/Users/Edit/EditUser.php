@@ -10,11 +10,10 @@ class EditUser extends Component
 {
     use WithFileUploads;
 
-    public $user_id, $user;
+    public $user_id, $user , $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null,
+        $codeMeli, $about, $gender, $birthDate, $levelUser = 'Counter' , $status = 'active', $levelPermission = '1', $email,
+        $password, $password_confirmation;
     protected $queryString = ['user_id'];
-    public $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null, $codeMeli, $about,
-        $gender, $birthDate, $levelUser = 'Counter'
-    , $status = 'active', $levelPermission = '1', $email, $password, $password_confirmation;
 
 
     public function mount()
@@ -43,6 +42,7 @@ class EditUser extends Component
     public function updated()
     {
         // dd($this->password);
+        dd($this->name);
         if ($this->password !== null or $this->password !== ''){
             if ($this->password !== $this->password_confirmation ){
                 session()->flash('password_status' , 'The password does not match');
@@ -98,14 +98,16 @@ class EditUser extends Component
 
     public function changePass($user_id)
     {
-        if ($this->password !== $this->password_confirmation ){
-            session()->flash('password_status' , 'The password does not match');
-        }else{
+        dd($this->password,$this->password_confirmation );
+        if ($this->password == $this->password_confirmation ){
             $user = User::query()->findOrFail($user_id);
-            $user->password = $this->password ;
+            $user->password = bcrypt($this->password) ;
             $user->save();
 
-            session()->flash('password_status' , 'The password does not match');
+            session()->flash('password_status' , 'The password is change');
+
+        }else{
+            session()->flash('password_not' , 'The password does not match');
         }
 
     }

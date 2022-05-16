@@ -20,6 +20,7 @@
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
     @livewireStyles
+
 </head>
 <body class="{{ $class ?? '' }}">
 @auth()

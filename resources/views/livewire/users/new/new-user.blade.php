@@ -76,7 +76,7 @@
 
                     <div class="pl-lg-4">
                         <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="name">{{ __('Name') }}</label>
+                            <label class="form-control-label" for="name">{{ __('Name') }} : {{ $name }}</label>
                             <input type="text" wire:model.lazy="name" id="name"
                                    class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                    required autofocus>

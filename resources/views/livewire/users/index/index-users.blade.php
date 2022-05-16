@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col">
         <div class="card">
+            @if (session('delete'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('delete') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+        @endif
             <!-- Card header -->
             <div class="card-header border-0">
                 <h3 class="mb-0">Users List</h3>
@@ -59,10 +67,11 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ asset(route('user_edit').'?user_id='.$item->id) }}" >Edit</a>
-                                        <a class="dropdown-item" href="#" wir:model="delete()">Delete</a>
-                                        <a class="dropdown-item" href="#" wir:model="disable()">Disable</a>
+                                        <button class="dropdown-item"  wir:click.privent="delete({{$item->id}})">Delete</button>
+                                        <button class="dropdown-item"  wir:click.privent="disable({{$item->id}})">Disable</button>
                                     </div>
                                 </div>
+                                <button class="btn btn-danger"  wir:click.privent="delete({{$item->id}})">Delete</button>
                             </td>
                         </tr>
                     @endforeach

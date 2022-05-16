@@ -70,7 +70,7 @@ class NewUser extends Component
         $newUser->pic = $this->upload_pic();
         $newUser->Signature = $this->upload_Signature();
         $newUser->email = $this->email;
-        $newUser->password = $this->password;
+        $newUser->password = bcrypt($this->password);
         $newUser->status = $this->status;
         $newUser->levelPermission = $this->levelPermission;
         $newUser->levelUser = $this->levelUser;

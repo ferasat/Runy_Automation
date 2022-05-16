@@ -3,7 +3,7 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-                <h3 class="mb-0">Correction Request List</h3>
+                <h3 class="mb-0">Referral List</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
