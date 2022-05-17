@@ -15,6 +15,7 @@
                         <th scope="col" class="sort" data-sort="status">to</th>
                         <th scope="col">Referrals</th>
                         <th scope="col">Status</th>
+                        <th scope="col">View</th>
                     </tr>
                     </thead>
                     <tbody class="list">
@@ -51,14 +52,29 @@
                             </td>
 
                             <td class="text-right">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Copy</a>
-                                        <a class="dropdown-item" href="#">See</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalView{{$item->id}}">
+                                    View
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalView{{$item->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalView{{$item->id}}Label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalView{{$item->id}}Label">{{ fullName($item->from) }} {{$item->id}}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {!! $item !!}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Understood</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </td>

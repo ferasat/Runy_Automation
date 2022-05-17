@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigInteger('to')->comment('ایدی کاربر دریافت کننده درخواست');
             $table->string('signature_to')->comment('امضای دریافت کننده');
             $table->string('description')->comment('توضیحات')->nullable();
-            $table->string('type')->comment('نوع');
+            $table->string('type')->comment('نوع'); // pay - cancel - Leave - overtime
             $table->bigInteger('type_id')->comment('آیدی نوع');
             $table->boolean('status' )->nullable()->comment('0 تاییدنشده - 1 تایید شده');
             $table->timestamps();

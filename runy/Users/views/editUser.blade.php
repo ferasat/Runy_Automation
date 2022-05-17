@@ -4,7 +4,7 @@
     @livewire('theme.header.header-cover' , ['title'=>'Edit User'])
 
     <div class="container-fluid mt--7">
-        @livewire('users.edit.edit-user' )
+        @livewire('users.edit.edit-user' , compact('user'))
 
         @include('layouts.footers.auth')
     </div>

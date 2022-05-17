@@ -15,9 +15,9 @@ class LeaveFormController extends Controller
     }
 
 
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        return view('RqsView::forms.newLeave');
     }
 
 

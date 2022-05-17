@@ -10,44 +10,30 @@ class EditUser extends Component
 {
     use WithFileUploads;
 
-    public $user_id, $user , $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null,
+    public $user_id , $user , $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null,
         $codeMeli, $about, $gender, $birthDate, $levelUser = 'Counter' , $status = 'active', $levelPermission = '1', $email,
         $password, $password_confirmation;
     protected $queryString = ['user_id'];
 
-
     public function mount()
     {
-        $this->user = User::query()->findOrFail($this->user_id);
-        //dd($this->user);
+        $this->name = $this->user->name ;
         $this->name = $this->user->name;
         //dd($this->name);
         $this->family = $this->user->family;
         $this->cellPhone = $this->user->cellPhone;
-        $this->pic = $this->user->pic;
-        $this->Signature = $this->user->Signature;
         $this->email = $this->user->email;
         $this->status = $this->user->status;
         $this->levelPermission = $this->user->levelPermission;
         $this->levelUser = $this->user->levelUser;
         $this->gender = $this->user->gender;
-    }
 
+        $this->pic = $this->user->pic;
+        $this->Signature = $this->user->Signature;
+    }
     public function render()
     {
-
         return view('livewire.users.edit.edit-user');
-    }
-
-    public function updated()
-    {
-        // dd($this->password);
-        dd($this->name);
-        if ($this->password !== null or $this->password !== ''){
-            if ($this->password !== $this->password_confirmation ){
-                session()->flash('password_status' , 'The password does not match');
-            }
-        }
     }
 
     public function upload_pic()
@@ -87,7 +73,6 @@ class EditUser extends Component
         }
         //dd($this->email);
         $user->email = $this->email;
-//        $this->user->password = $this->password;
         $user->status = $this->status;
         $user->levelPermission = $this->levelPermission;
         $user->levelUser = $this->levelUser;
@@ -98,7 +83,10 @@ class EditUser extends Component
 
     public function changePass($user_id)
     {
-        dd($this->password,$this->password_confirmation );
+        $this->validate([
+            'password' => 'min:8',
+            'password_confirmation' => 'min:8',
+        ]);
         if ($this->password == $this->password_confirmation ){
             $user = User::query()->findOrFail($user_id);
             $user->password = bcrypt($this->password) ;
@@ -111,4 +99,5 @@ class EditUser extends Component
         }
 
     }
+
 }

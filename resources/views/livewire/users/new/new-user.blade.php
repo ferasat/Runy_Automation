@@ -87,7 +87,7 @@
                                         </span>
                             @enderror
                         </div>
-                        <div class="form-group{{ $errors->has('family') ? ' has-danger' : '' }}">
+                        <div cla    ss="form-group{{ $errors->has('family') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="family">{{ __('Last name') }}</label>
                             <input type="text" wire:model.lazy="family" id="family"
                                    class="form-control form-control-alternative{{ $errors->has('family') ? ' is-invalid' : '' }}" required autofocus>

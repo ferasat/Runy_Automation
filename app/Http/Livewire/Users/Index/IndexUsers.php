@@ -10,10 +10,11 @@ use Livewire\WithPagination;
 class IndexUsers extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
-        $users = User::query()->orderByDesc('id')->paginate(10);
+        $users = User::query()->orderByDesc('id')->paginate(2);
         return view('livewire.users.index.index-users', compact('users'));
     }
 

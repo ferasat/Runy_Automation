@@ -13,8 +13,11 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->date('leave_start');
+            $table->time('leave_start_time');
             $table->date('leave_end');
+            $table->time('leave_end_time');
             $table->enum('leave_type' , ['Vacation','Sick','Quitting','Other']);
+            $table->boolean('accept' )->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
         });

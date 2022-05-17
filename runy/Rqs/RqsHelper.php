@@ -14,3 +14,14 @@ function statusRPay($status)
         return 'Manager Accounting Approval';
     }
 }
+
+function statusLeave($status)
+{
+    if ($status == 0) {
+        return 'Not Approve';
+    } elseif ($status == 1) {
+        return 'Approve';
+    }else {
+        return 'No Check';
+    }
+}

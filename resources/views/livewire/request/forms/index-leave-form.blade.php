@@ -22,16 +22,15 @@
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
-                                    <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal">
+                                    <a href="#" class="media-body" data-toggle="modal" data-target="#Leave_id_Modal{{$item->id}}">
                                         <span class="name mb-0 text-sm">{{ $item->id }}</span>
                                     </a>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="book_id_Modal" tabindex="-1" role="dialog"
-                                         aria-labelledby="book_id_ModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="Leave_id_Modal{{$item->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="Leave_id_Modal{{$item->id}}Label" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
-                                            @livewire('request.correction.show-correction-request' , compact('item'))
-
+                                            @livewire('request.forms.show-leave-form' , compact('item') , key($item->id))
                                         </div>
                                     </div>
                                 </div>
@@ -47,10 +46,12 @@
 
                             <td>
                                 <div class="avatar-group">
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Ryan Tompson">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                    </a>
+
+                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
+                                           data-original-title="{{ fullName($item->user_id) }}">
+                                            <img alt="Image placeholder" src="{{ asset(userPic($item->user_id)) }}">
+                                        </a>
+
                                 </div>
                             </td>
 
@@ -74,27 +75,7 @@
             <!-- Card footer -->
             <div class="card-footer py-4">
                 <nav aria-label="...">
-                    <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fas fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fas fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
+                    {{ $forms -> links() }}
                 </nav>
             </div>
         </div>
