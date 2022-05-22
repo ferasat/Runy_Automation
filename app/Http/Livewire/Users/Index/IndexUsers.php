@@ -14,7 +14,7 @@ class IndexUsers extends Component
 
     public function render()
     {
-        $users = User::query()->orderByDesc('id')->paginate(2);
+        $users = User::query()->orderByDesc('id')->paginate(10);
         return view('livewire.users.index.index-users', compact('users'));
     }
 

@@ -81,4 +81,13 @@ Route::group(['prefix' => '/Artisan'], function () {
 
     });
 
+    Route::get('/storage', function () {
+
+        Artisan::call('storage:link' , [
+            '--force' => true,
+        ]);
+        dd("Storage Link");
+
+    });
+
 });

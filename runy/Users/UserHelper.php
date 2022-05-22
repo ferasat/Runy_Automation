@@ -13,6 +13,7 @@ function fullName($id){
     }else{
         $full = $user->name . ' '.$user->family ;
     }
+    // dd($full);
     return $full ;
 }
 

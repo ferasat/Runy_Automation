@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('payment_requests', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('ref_id')->nullable()->comment('آیدی فرایند شروع کننده فرایند ارجاع');
             $table->bigInteger('user_id');
-            $table->bigInteger('book_id')->nullable();
+            $table->string('book_id')->nullable();
             $table->bigInteger('price')->nullable();
             $table->enum('currency' , ['USA Dollar' , 'IR Rial' , 'UAE Dirham' , 'TUR Lira', 'Euro'])->nullable();
             $table->string('getter')->nullable()->comment('گیرنده پول *- در وجه');

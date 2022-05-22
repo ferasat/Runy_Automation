@@ -22,7 +22,7 @@
                         <label for="example-text-input"
                                class="col-md-3 col-form-label form-control-label">Price <span class="text-danger">*</span></label>
                         <div class="col-md-9">
-                            <input class="form-control" type="text" wire:model.lazy="price">
+                            <input class="form-control" type="number" wire:model.lazy="price">
                             @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>

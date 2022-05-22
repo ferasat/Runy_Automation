@@ -9,6 +9,7 @@ use Referral\Models\Referral;
 class IndexReferral extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {

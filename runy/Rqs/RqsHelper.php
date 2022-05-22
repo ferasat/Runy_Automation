@@ -1,5 +1,7 @@
 <?php
 
+use Referral\Models\Referral;
+
 function statusRPay($status)
 {
     if ($status == 1) {
@@ -24,4 +26,18 @@ function statusLeave($status)
     }else {
         return 'No Check';
     }
+}
+
+function payReferralToMe($user_id , $pay_id)
+{
+    $a_refer = Referral::query()->where([
+        'to' => $user_id ,
+        'type' => 'pay' ,
+        'type_id' => $pay_id ,
+    ])->first();
+
+    if ($a_refer == null)
+        return false;
+    else
+        return true;
 }

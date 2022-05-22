@@ -16,6 +16,10 @@ class NewRequestPayment extends Component
         $number_cart_bank, $account_owner_bank, $description , $admin_approval=0 , $type_spent , $status=1 , $signature_1 ,
         $signature_2 , $signature_3 , $signature_4, $signature_5 , $to_id;
 
+    public function mount()
+    {
+        $this->to_id = Auth::id();
+    }
     protected $rules = [
         'price' => 'required',
         'book_id' => 'required',
@@ -31,20 +35,7 @@ class NewRequestPayment extends Component
 
     public function updated()
     {
-
-    }
-
-    public function createReferral($from , $to , $description , $type , $type_id )
-    {
-        $new = new Referral() ;
-        $new -> from = $from ;
-        $new -> signature_from = userSignature($from) ;
-        $new -> to = $to ;
-        $new -> signature_to = userSignature($to) ;
-        $new -> description = $description ;
-        $new -> type = $type ;
-        $new -> type_id = $type_id ;
-        $new -> save();
+        $this->validate();
     }
 
     public function save(){
@@ -66,9 +57,11 @@ class NewRequestPayment extends Component
         $newPay->status = $this->status ;
         //dd($newPay);
         if ($newPay->save()){
+            //createReferral(Auth::id(), Auth::id(),$this->to_id,$this->description,'pay',$newPay->id);
 
             $new = new Referral() ;
             $new -> from = Auth::id() ;
+            $new -> user_id = Auth::id() ;
             $new -> signature_from = userSignature(Auth::id()) ;
             $new -> to = $this->to_id ;
             $new -> signature_to = userSignature($this->to_id) ;
@@ -76,7 +69,11 @@ class NewRequestPayment extends Component
             $new -> type = 'pay' ;
             $new -> type_id = $newPay->id ;
             $new -> save();
-            //dd('dd');
+            $new -> ref_id = $new ->id;
+            $new -> save();
+
+            $newPay -> ref_id = $new -> ref_id ;
+            $newPay->save()
 
             $this->redirect(route('payments.index'));
         }else{

@@ -34,14 +34,7 @@
                             </td>
 
                             <td>
-                                <div class="avatar-group">
-                                    @foreach(personInReferral($item->type , $item->type_id) as $referr)
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="{{ fullName($referr->to) }}">
-                                        <img alt="Image placeholder" src="{{ asset(userPic($referr->to)) }}">
-                                    </a>
-                                    @endforeach
-                                </div>
+                                @livewire('referral.users-in-referral' , ['type'=> 'pay' , 'type_id'=>$item->type_id ] , key($item->id) )
                             </td>
 
                             <td>
