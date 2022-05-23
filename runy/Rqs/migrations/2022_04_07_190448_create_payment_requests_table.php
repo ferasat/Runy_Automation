@@ -33,10 +33,15 @@ return new class extends Migration
             $table->boolean('manager_approval')->default(0)->comment('نیار به تایید مدیریت');
             $table->enum('type_spent' , ['cash' , 'online' , 'transfer'])->nullable()->comment('نوع پرداخت');
             $table->enum('status' , ['1' , '2' , '3', '4', '5'])->nullable()->comment('1-counter 2-As Accounting Approval 3-As Manager Accounting Approval 4-Manager Approval 5-Manager Accounting');
+            $table->bigInteger('person_1' )->nullable()->comment('');
             $table->string('signature_1' )->nullable()->comment('');
+            $table->bigInteger('person_2' )->nullable()->comment('');
             $table->string('signature_2' )->nullable()->comment('');
+            $table->bigInteger('person_3' )->nullable()->comment('');
             $table->string('signature_3' )->nullable()->comment('');
+            $table->bigInteger('person_4' )->nullable()->comment('');
             $table->string('signature_4' )->nullable()->comment('');
+            $table->bigInteger('person_5' )->nullable()->comment('');
             $table->string('signature_5' )->nullable()->comment('');
             $table->timestamps();
         });

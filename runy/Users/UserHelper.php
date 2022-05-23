@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 function userInfo($id){
     return User::query()->findOrFail($id);
@@ -34,4 +35,12 @@ function userPic ($id) {
         $pic = $user->pic ;
     }
     return $pic ;
+}
+
+function is_accounting($user_id){
+    $user = User::query()->findOrFail($user_id);
+    if ($user->levelPermission == 6 or $user->levelPermission == 9 or $user->levelPermission == 10)
+        return true ;
+    else
+        return false ;
 }

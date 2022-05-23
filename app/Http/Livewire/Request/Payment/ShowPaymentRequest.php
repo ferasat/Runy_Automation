@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Referral\Models\Referral;
+use Rqs\Models\PaymentRequest;
 
 class ShowPaymentRequest extends Component
 {
@@ -14,10 +15,7 @@ class ShowPaymentRequest extends Component
 
     public function mount()
     {
-        if (Auth::user()->levelPermission == 6 or Auth::user()->levelPermission == 9 or Auth::user()->levelPermission == 10)
-            $this->is_account = true ;
-        else
-            $this->is_account = false ;
+        $this->is_account = is_accounting(Auth::id());
         $this -> users = User::all();
         $this->to_id = Auth::id();
         $this->approve = 0;
@@ -27,20 +25,30 @@ class ShowPaymentRequest extends Component
         return view('livewire.request.payment.show-payment-request');
     }
 
-    public function save()
+    public function save($pay_id)
     {
-        $referr = Referral::query()->findOrFail($this->item->id);
-        $new = new Referral() ;
-        $new -> from = Auth::id() ;
-        $new -> user_id = $referr->user_id ;
-        $new -> ref_id = $referr->ref_id ;
-        $new -> signature_from = userSignature(Auth::id()) ;
-        $new -> to = $this->to_id ;
-        $new -> signature_to = userSignature($this->to_id) ;
-        $new -> description = $referr->description ;
-        $new -> type = 'pay' ;
-        $new -> type_id = $this->item->id ;
-        $new -> save();
+        $referr = Referral::query()->where('ref_id' , $pay_id)->first();
+        //dd($referr , $this->item->id);
+        if ($this->approve == 1){
+            $new = new Referral() ;
+            $new -> from = Auth::id() ;
+            $new -> user_id = $referr->user_id ;
+            $new -> ref_id = $referr->ref_id ;
+            $new -> signature_from = userSignature(Auth::id()) ;
+            $new -> to = $this->to_id ;
+            $new -> signature_to = userSignature($this->to_id) ;
+            $new -> description = $referr->description ;
+            $new -> type = 'pay' ;
+            $new -> type_id = $this->item->id ;
+            $new -> save();
+
+            $this->emit('updateUserInRefer');
+
+            session()->flash('successRefer' , 'Okay !');
+        }else {
+            dd('Not');
+        }
+
 
     }
 

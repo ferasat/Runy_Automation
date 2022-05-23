@@ -59,6 +59,12 @@
                 </select>
             </div>
         </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <button class="btn btn-success" wire:click.privent="save({{$item->id}})">Save</button>
+            </div>
+        </div>
     </div>
     @endif
     <div class="modal-footer">
