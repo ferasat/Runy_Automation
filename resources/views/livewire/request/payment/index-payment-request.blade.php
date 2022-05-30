@@ -82,7 +82,7 @@
                                     <td>
                               <span class="badge badge-dot mr-4">
                                 <i class="bg-warning"></i>
-                                <span class="status">{{ statusRPay($item->status) }}</span>
+                                <span class="status">{{ $item->status }}</span>
                               </span>
                                     </td>
                                     <td>

@@ -4,11 +4,13 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 function userInfo($id){
+    //dd($id);
+    //dd(User::query()->findOrFail($id));
     return User::query()->findOrFail($id);
 }
 
 function fullName($id){
-    $user = userInfo($id);
+    $user = User::query()->find($id);
     if ($user == null){
         $full = 'بدون نام';
     }else{

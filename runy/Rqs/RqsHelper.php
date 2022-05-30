@@ -23,21 +23,29 @@ function statusLeave($status)
         return 'Not Approve';
     } elseif ($status == 1) {
         return 'Approve';
-    }else {
+    } else {
         return 'No Check';
     }
 }
 
-function payReferralToMe($user_id , $pay_id)
+function payReferralToMe($user_id, $pay_id)
 {
     $a_refer = Referral::query()->where([
-        'to' => $user_id ,
-        'type' => 'pay' ,
-        'type_id' => $pay_id ,
+        'to' => $user_id,
+        'type' => 'pay',
+        'type_id' => $pay_id,
     ])->first();
 
     if ($a_refer == null)
         return false;
     else
         return true;
+}
+
+function statusApprove($num)
+{
+    if ($num == 1)
+        return 'Approve' ;
+    else
+        return 'Not approved' ;
 }

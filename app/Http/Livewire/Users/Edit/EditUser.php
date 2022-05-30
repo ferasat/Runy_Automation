@@ -12,7 +12,7 @@ class EditUser extends Component
 
     public $user_id , $user , $name, $family, $cellPhone, $username, $pic, $pic_up = null, $Signature, $Signature_up = null,
         $codeMeli, $about, $gender, $birthDate, $levelUser = 'Counter' , $status = 'active', $levelPermission = '1', $email,
-        $password, $password_confirmation;
+        $password, $password_confirmation , $showPassSuc=0;
     protected $queryString = ['user_id'];
 
     public function mount()
@@ -92,6 +92,7 @@ class EditUser extends Component
             $user->password = bcrypt($this->password) ;
             $user->save();
 
+            $this -> showPassSuc = 1 ;
             session()->flash('password_status' , 'The password is change');
 
         }else{

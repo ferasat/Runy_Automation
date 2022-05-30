@@ -54,7 +54,8 @@ class NewRequestPayment extends Component
         $newPay->account_owner_bank = $this->account_owner_bank ;
         $newPay->person_id = $this->person_id ;
         $newPay->description = $this->description ;
-        $newPay->status = $this->status ;
+
+        $newPay->status = fullName(Auth::id()).' send to '.fullName($this->to_id) ;
         //dd($newPay);
         if ($newPay->save()){
             //createReferral(Auth::id(), Auth::id(),$this->to_id,$this->description,'pay',$newPay->id);
@@ -69,13 +70,21 @@ class NewRequestPayment extends Component
             $new -> type = 'pay' ;
             $new -> type_id = $newPay->id ;
             $new -> save();
+
             $new -> ref_id = $new ->id;
             $new -> save();
 
             $newPay -> ref_id = $new -> ref_id ;
-            $newPay->save()
+            $newPay -> person_1 = Auth::id() ;
+            $newPay -> person_2 = $this->to_id ;
+            $newPay -> approve_1 = 1 ;
+            $newPay -> signature_1 = userSignature(Auth::id()) ;
+            $newPay->save();
+
+
 
             $this->redirect(route('payments.index'));
+
         }else{
             dd($newPay->save());
         }

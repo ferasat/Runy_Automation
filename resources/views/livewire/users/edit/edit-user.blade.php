@@ -215,7 +215,7 @@
                 <div >
                     <h6 class="heading-small text-muted mb-4">{{ __('Password') }}</h6>
 
-                    @if (session('password_status'))
+                    @if (session()->has('password_status'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('password_status') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -236,7 +236,7 @@
 
                         <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="password">{{ __('New Password') }}</label>
-                            <input type="password" id="password" wir:model="password" class="form-control" >
+                            <input type="password" id="password" wire:model="password" class="form-control" >
 
                             @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -247,7 +247,7 @@
                         <div class="form-group">
                             <label class="form-control-label"
                                    for="password_confirmation">{{ __('Confirm New Password') }}</label>
-                            <input type="password" wir:model="password_confirmation" id="password_confirmation"
+                            <input type="password" wire:model="password_confirmation" id="password_confirmation"
                                    class="form-control">
                         </div>
 
