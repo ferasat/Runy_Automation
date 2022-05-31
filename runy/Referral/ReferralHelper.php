@@ -46,10 +46,12 @@ function referralToMe($user_id, $type)
 
 function get_ref_create($type, $type_id)
 {
+    //dd($type);
     $referrals = Referral::query()->where([
         'type' => $type,
         'type_id' => $type_id
     ])->first();
+    //dd($referrals);
     if ($referrals == null) {
         dd($referrals, $type, $type_id);
     }

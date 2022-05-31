@@ -22,15 +22,15 @@
                         <tr>
                             <th scope="row">
                                 <div class="media align-items-center">
-                                    <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal">
+                                    <a href="#" class="media-body" data-toggle="modal" data-target="#book_id_Modal_{{$item->id}}">
                                         <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
                                     </a>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="book_id_Modal" tabindex="-1" role="dialog"
-                                         aria-labelledby="book_id_ModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="book_id_Modal_{{$item->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="book_id_Modal_{{$item->id}}Label" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
-                                            @livewire('request.correction.show-correction-request' , compact('item'))
+                                            @livewire('request.correction.show-correction-request' , compact('item') , key($item->id))
 
                                         </div>
                                     </div>
@@ -46,12 +46,8 @@
                       </span>
                             </td>
                             <td>
-                                <div class="avatar-group">
-                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                                       data-original-title="Ryan Tompson">
-                                        <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                    </a>
-                                </div>
+                                @livewire('referral.users-in-referral' , ['type'=> 'Correction' , 'type_id'=>$item->id
+                                ] , key($item->id) )
                             </td>
 
                             <td class="text-right">
@@ -73,29 +69,7 @@
             </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
-                <nav aria-label="...">
-                    <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fas fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fas fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                {{ $correction_requests->links() }}
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ class IndexCorrectionRequest extends Component
 
     public function render()
     {
-        if (is_admin(Auth::id()))
+        if (is_admin(Auth::id()) or is_accounting(Auth::id()))
             $correction_requests = CorrectionRequest::query()->orderByDesc('id')->paginate();
         else
             $correction_requests = CorrectionRequest::query()->where('user_id' , Auth::id())->orderByDesc('id')->paginate();

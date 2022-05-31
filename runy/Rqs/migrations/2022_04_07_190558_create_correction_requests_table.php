@@ -32,6 +32,12 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('description')->nullable();
             $table->string('currency')->nullable();
+            $table->bigInteger('person_1' )->nullable()->comment('');
+            $table->string('signature_1' )->nullable()->comment('');
+            $table->boolean('approve_1' )->default(0)->comment('');
+            $table->bigInteger('person_2' )->nullable()->comment('');
+            $table->string('signature_2' )->nullable()->comment('');
+            $table->boolean('approve_2' )->default(0)->comment('');
             $table->timestamps();
         });
     }

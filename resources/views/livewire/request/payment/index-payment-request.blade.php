@@ -72,25 +72,21 @@
 
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </th>
                                     <td class="budget">
                                         {{ $item->price }} {{ $item->currency }}
                                     </td>
                                     <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-warning"></i>
-                                <span class="status">{{ $item->status }}</span>
-                              </span>
+                                      <span class="badge badge-dot mr-4">
+                                        <i class="bg-warning"></i>
+                                        <span class="status">{{ $item->status }}</span>
+                                      </span>
                                     </td>
                                     <td>
                                         @livewire('referral.users-in-referral' , ['type'=> 'pay' , 'type_id'=>$item->id
                                         ] , key($item->id) )
                                     </td>
-
-
                                 </tr>
                             @endif
                         @endforeach

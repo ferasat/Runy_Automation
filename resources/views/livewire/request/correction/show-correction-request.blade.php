@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="book_id_ModalLabel">Correction Request
+        <h5 class="modal-title" id="book_id_Modal{{ $item->id }}Label">Correction Request
             For Book {{ $item->id }}</h5>
         <button type="button" class="close" data-dismiss="modal"
                 aria-label="Close">
@@ -36,6 +36,72 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="border-bottom"></div>
+    <div class="modal-body">
+        @if($canSeeRef_1)
+            @if($item -> approve_1 == null or $item -> person_1 == '')
+                <div class="modal-body">
+
+                    <h4 class="modal-title">First reference :</h4>
+
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label ">
+                            <span><b>{{ $namePerson_1 }}</b> It is approved ?</span>
+                        </label>
+                        <div class="col-sm-5 ">
+                            <select class="form-control " wire:model.lazy="approve">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label text-danger">Referral To :</label>
+                        <div class="col-sm-5 ">
+                            <select class="form-control " wire:model.lazy="to_id">
+                                @foreach($users as $user)
+                                    @if(is_accounting($user->id))
+                                        <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-success" wire:click.privent="save({{$item->id}} , 1)">Save</button>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="modal-body">
+
+                    <h4 class="modal-title">Third reference :</h4>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 col-md-6 col-lg-6  ">
+                            <span><b>{{ $namePerson_1 }}</b>, It is approved ? @if($item->approve_1 == 1) Yes @else
+                                No @endif</span>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4  ">
+                            <div class="avatar">
+                                <img class="avatar"
+                                     src="{{ asset( $item->signature_1) }}"
+                                     alt="Counter">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-form-label text-danger">
+                            Referral To : <b>{{ fullName($item->person_2) }}</b>
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+        @endif
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary"

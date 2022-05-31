@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Request\Correction;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+use Referral\Models\Referral;
 use Rqs\Models\CorrectionRequest;
 
 class NewCorrectionRequest extends Component
@@ -12,12 +15,14 @@ class NewCorrectionRequest extends Component
 
     public $book_id , $passenger_name , $date , $supplier , $supplier_rate  , $currency , $applicant , $cancel_hotel ,
     $penalty_cancellation_share , $applicant_rate , $cancel_fine_hotel , $counter_signature , $accounting_signature , $accounting_user_id ,
-    $status , $user_id , $show = false , $description;
+    $status , $user_id , $show = false , $description , $users , $to_id , $namePerson_1;
 
     public function mount()
     {
+        $this->users = User::all();
         $this->cancel_hotel = 0;
         $this->currency = 'UAE Dirham';
+
     }
 
     protected $rules = [
@@ -32,6 +37,8 @@ class NewCorrectionRequest extends Component
 
     public function updated()
     {
+        $this->validate();
+
         if ($this->cancel_hotel == 1)
             $this->show = true;
         elseif ($this->cancel_hotel == 0)
@@ -60,7 +67,28 @@ class NewCorrectionRequest extends Component
         $newRq -> counter_signature = $this->counter_signature ;
         $newRq -> description = $this->description ;
         $newRq -> status = 'Send For Accounting' ;
-        $newRq -> save() ;
+
+        if ($newRq -> save()){
+            $new = new Referral() ;
+            $new -> from = Auth::id() ;
+            $new -> user_id = Auth::id() ;
+            $new -> signature_from = userSignature(Auth::id()) ;
+            $new -> to = $this->to_id ;
+            $new -> signature_to = userSignature($this->to_id) ;
+            $new -> description = $this->description ;
+            $new -> type = 'Correction' ;
+            $new -> type_id = $newRq->id ;
+            $new -> save();
+
+            $new -> ref_id = $new ->id;
+            $new -> save();
+
+            $newRq -> person_1 = $this->to_id ;
+            $newRq -> save();
+
+        }else {
+            dd('not Ok!');
+        }
 
         $this->redirect(route('corrections.index'));
     }

@@ -145,6 +145,19 @@
                             @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-danger">Referral To :</label>
+                        <div class="col-sm-9 ">
+                            <select class="form-control " wire:model.lazy="to_id">
+                                @foreach($users as $user)
+                                    @if(is_accounting($user->id))
+                                        <option value="{{ $user->id }}" >{{ fullName($user->id) }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
