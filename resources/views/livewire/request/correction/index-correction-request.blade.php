@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col">
+<div class="row justify-content-center">
+    <div class="col-md-8">
         <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
@@ -14,7 +14,6 @@
                         <th scope="col" class="sort" data-sort="budget">Passenger</th>
                         <th scope="col" class="sort" data-sort="status">Status</th>
                         <th scope="col">Referrals</th>
-                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody class="list">
@@ -31,7 +30,6 @@
                                          aria-labelledby="book_id_Modal_{{$item->id}}Label" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             @livewire('request.correction.show-correction-request' , compact('item') , key($item->id))
-
                                         </div>
                                     </div>
                                 </div>
@@ -40,28 +38,20 @@
                                 {{ $item->passenger_name }}
                             </td>
                             <td>
-                      <span class="badge badge-dot mr-4">
-                        <i class="bg-success"></i>
-                        <span class="status">{{ $item->status }}</span>
-                      </span>
+                              <span class="badge badge-dot mr-4">
+                                @if($item->active)
+                                      <i class="bg-success"></i>
+                                  @else
+                                      <i class="bg-danger"></i>
+                                  @endif
+                                <span class="status">{{ $item->status }}</span>
+                              </span>
                             </td>
                             <td>
                                 @livewire('referral.users-in-referral' , ['type'=> 'Correction' , 'type_id'=>$item->id
                                 ] , key($item->id) )
                             </td>
 
-                            <td class="text-right">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Copy</a>
-                                        <a class="dropdown-item" href="#">See</a>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -60,46 +60,74 @@ class ShowPaymentRequest extends Component
             'type' => 'pay' ,
             'type_id' => $pay_id ,
         ])->first();
-        //dd($referr);
+
+        $pay = PaymentRequest::query()->findOrFail($this->item->id);
 
         if ($this->approve == 1){
-            $new = new Referral() ;
-            $new -> from = Auth::id() ;
-            $new -> user_id = $referr->user_id ;
-            $new -> ref_id = $referr->ref_id ;
-            $new -> signature_from = userSignature(Auth::id()) ;
-            $new -> to = $this->to_id ;
-            $new -> signature_to = userSignature($this->to_id) ;
-            $new -> description = $referr->description ;
-            $new -> type = 'pay' ;
-            $new -> type_id = $pay_id ;
-            $new -> save();
+            if ($this->to_id == 'finish'){
+                $pay -> status = fullName(Auth::id()).' approved.' ;
+                $pay -> active = 0;
+            }else {
+                $new = new Referral() ;
+                $new -> from = Auth::id() ;
+                $new -> user_id = $referr->user_id ;
+                $new -> ref_id = $referr->ref_id ;
+                $new -> signature_from = userSignature(Auth::id()) ;
+                $new -> to = $this->to_id ;
+                $new -> signature_to = userSignature($this->to_id) ;
+                $new -> description = $referr->description ;
+                $new -> type = 'pay' ;
+                $new -> type_id = $pay_id ;
+
+            }
+
 
             $referr-> status = 1 ;
             $referr-> save();
 
             $this->emit('updateUserInRefer');
 
-            $pay = PaymentRequest::query()->findOrFail($this->item->id);
+
             if ($int == 2){
-                $pay -> person_3 = $this->to_id ;
+
                 $pay -> approve_2 = 1 ;
                 $pay -> signature_2 = userSignature(Auth::id()) ;
-                $pay -> status = fullName(Auth::id()).' approved.' ;
+                if ($this->to_id == 'finish'){
+                    $pay -> status = fullName(Auth::id()).' approved.' ;
+                    $pay->active = 0;
+                }else{
+                    $new -> save();
+                    $pay -> person_3 = $this->to_id ;
+                }
+
                 $pay -> save();
                 $this -> item -> approve_2 = 1 ;
             }elseif ($int == 3){
-                $pay -> person_4 = $this->to_id ;
+
                 $pay -> approve_3 = 1 ;
                 $pay -> signature_3 = userSignature(Auth::id()) ;
-                $pay -> status = fullName(Auth::id()).' approved.' ;
+                //dd($this->to_id);
+                if ($this->to_id == 'finish'){
+                    $pay -> status = fullName(Auth::id()).' approved.' ;
+                    $pay -> active = 0;
+                }else{
+                    $new -> save();
+                    $pay -> person_4 = $this->to_id ;
+                }
+                //dd($this->to_id);
                 $pay -> save();
                 $this -> item -> approve_3 = 1 ;
             }elseif ($int == 4){
-                $pay -> person_5 = $this->to_id ;
+
                 $pay -> approve_4 = 1 ;
                 $pay -> signature_4 = userSignature(Auth::id()) ;
-                $pay -> status = fullName(Auth::id()).' approved.' ;
+                if ($this->to_id == 'finish'){
+                    $pay -> status = fullName(Auth::id()).' approved.' ;
+                    $pay->active = 0;
+                }else{
+                    $new -> save();
+                    $pay -> person_5 = $this->to_id ;
+                }
                 $pay -> save();
                 $this -> item -> approve_4 = 1 ;
             }elseif ($int == 5){
@@ -116,10 +144,11 @@ class ShowPaymentRequest extends Component
 
             session()->flash('successRefer' , 'Okay !');
         }else {
-            dd('Not');
+            $pay -> status = fullName(Auth::id()).' not approved.' ;
+            $pay -> active = 0;
         }
 
-
+        $this->render();
     }
 
 }

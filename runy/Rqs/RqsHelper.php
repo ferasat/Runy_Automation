@@ -45,7 +45,22 @@ function payReferralToMe($user_id, $pay_id)
 function statusApprove($num)
 {
     if ($num == 1)
-        return 'Approve' ;
+        return 'Approve';
     else
-        return 'Not approved' ;
+        return 'Not approved';
+}
+
+function getInfoRqsAsReferral($id , $type)
+{
+    if ($type == 'pay'){
+        return \Rqs\Models\PaymentRequest::query()->findOrFail($id);
+    }elseif($type == 'Correction'){
+        return \Rqs\Models\CorrectionRequest::query()->findOrFail($id);
+    }elseif($type == 'Leave'){
+        return \Rqs\Models\LeaveForm::query()->findOrFail($id);
+    }elseif($type == 'OverTime') {
+        return \Rqs\Models\OvertimeForm::query()->findOrFail($id);
+    }else {
+        return null ;
+    }
 }

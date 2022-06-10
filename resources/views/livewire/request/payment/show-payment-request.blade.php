@@ -64,6 +64,7 @@
                                     <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
                                 @endif
                             @endforeach
+                                <option class="text-danger" value="finish">Finish Referral</option>
                         </select>
                     </div>
                 </div>
@@ -107,8 +108,8 @@
                 <h4 class="modal-title">Third reference :</h4>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label "><b>{{ fullName($item->person_3) }}</b> It is approved ?</label>
-                    <div class="col-sm-9 ">
+                    <label class="col-sm-5 col-form-label "><b>{{ fullName($item->person_3) }}</b> It is approved ?</label>
+                    <div class="col-sm-7 ">
                         <select class="form-control " wire:model.lazy="approve">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
@@ -117,14 +118,15 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label text-danger">Referral To :</label>
-                    <div class="col-sm-9 ">
+                    <label class="col-sm-5 col-form-label text-danger">Referral To :</label>
+                    <div class="col-sm-7 ">
                         <select class="form-control " wire:model.lazy="to_id">
                             @foreach($users as $user)
                                 @if(is_accounting($user->id))
                                     <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
                                 @endif
                             @endforeach
+                                <option class="text-danger" value="finish">Finish Referral</option>
                         </select>
                     </div>
                 </div>
@@ -186,6 +188,7 @@
                                     <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
                                 @endif
                             @endforeach
+                                <option class="text-danger" value="finish">Finish Referral</option>
                         </select>
                     </div>
                 </div>
@@ -247,6 +250,7 @@
                                     <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
                                 @endif
                             @endforeach
+                                <option class="text-danger" value="finish">Finish Referral</option>
                         </select>
                     </div>
                 </div>

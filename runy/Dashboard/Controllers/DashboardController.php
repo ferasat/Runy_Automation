@@ -10,8 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        //dd('ddd');
-        return view('DashboardView::dashboard');
+        return redirect(route('home'));
+        //return view('DashboardView::dashboard');
     }
 
 

@@ -27,7 +27,6 @@
                                     <th scope="col">From</th>
                                     <th scope="col">To</th>
                                     <th scope="col">Users</th>
-                                    <th scope="col">Status</th>
                                     <th scope="col">View</th>
                                 </tr>
                             </thead>
@@ -63,14 +62,7 @@
                                         </div>
                                     </td>
 
-                                    <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-success"></i>
-                                <span class="status">{{ statusReferral($item->status) }}</span>
-                              </span>
-                                    </td>
-
-                                    <td class="text-right">
+                                    <td >
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalView{{$item->id}}">
                                             View
@@ -79,21 +71,14 @@
                                         <!-- Modal -->
                                         <div class="modal fade" id="modalView{{$item->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalView{{$item->id}}Label" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalView{{$item->id}}Label">{{ fullName($item->from) }} {{$item->id}}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        {!! $item !!}
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Understood</button>
-                                                    </div>
-                                                </div>
+                                                @if($item->type == 'pay')
+                                                    @livewire('request.payment.show-payment-request' ,
+                                                    ['item'=>getInfoRqsAsReferral($item->type_id, 'pay') ] , key($item->id))
+                                                @elseif($item->type == 'Correction')
+                                                    @livewire('request.correction.show-correction-request' ,
+                                                    ['item'=>getInfoRqsAsReferral($item->type_id, 'Correction') ] ,
+                                                    key($item->id))
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('accounting_signature')->nullable();
             $table->bigInteger('accounting_user_id')->nullable();
             $table->string('status')->nullable();
+            $table->boolean('active')->default(1)->nullable(); // این گزینه فعال بودن یا از رده خارج شدن ایم درخواست را مشخص می کند
             $table->string('description')->nullable();
             $table->string('currency')->nullable();
             $table->bigInteger('person_1' )->nullable()->comment('');
@@ -38,6 +39,9 @@ return new class extends Migration
             $table->bigInteger('person_2' )->nullable()->comment('');
             $table->string('signature_2' )->nullable()->comment('');
             $table->boolean('approve_2' )->default(0)->comment('');
+            $table->bigInteger('person_3' )->nullable()->comment('');
+            $table->string('signature_3' )->nullable()->comment('');
+            $table->boolean('approve_3' )->default(0)->comment('');
             $table->timestamps();
         });
     }

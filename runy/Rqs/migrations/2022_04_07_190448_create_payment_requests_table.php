@@ -33,6 +33,7 @@ return new class extends Migration
             $table->boolean('manager_approval')->default(0)->comment('نیار به تایید مدیریت');
             $table->enum('type_spent' , ['cash' , 'online' , 'transfer'])->nullable()->comment('نوع پرداخت');
             $table->string('status' )->nullable()->comment('1-counter 2-As Accounting Approval 3-As Manager Accounting Approval 4-Manager Approval 5-Manager Accounting');
+            $table->boolean('active')->default(1)->nullable(); // این گزینه فعال بودن یا از رده خارج شدن ایم درخواست را مشخص می کند
             $table->bigInteger('person_1' )->nullable()->comment('');
             $table->string('signature_1' )->nullable()->comment('');
             $table->boolean('approve_1' )->default(0)->comment('');

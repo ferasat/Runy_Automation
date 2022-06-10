@@ -28,6 +28,6 @@ class ReferralServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(base_path('runy/Referral/views') , 'ReferralView');
 
-        Route::middleware('web')->group(base_path('runy/Referral/Referral_route.php'));
+        Route::middleware('web')->group(base_path('runy/Referral/referral_route.php'));
     }
 }

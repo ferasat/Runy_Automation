@@ -44,7 +44,7 @@ function referralToMe($user_id, $type)
     return $referral;
 }
 
-function get_ref_create($type, $type_id)
+function get_ref_creator($type, $type_id)
 {
     //dd($type);
     $referrals = Referral::query()->where([
@@ -57,6 +57,10 @@ function get_ref_create($type, $type_id)
     }
     //dd($referrals);
     return $referrals;
+}
+function get_referral_creator()
+{
+
 }
 
 

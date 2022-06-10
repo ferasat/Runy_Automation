@@ -84,7 +84,7 @@
                     <div class="form-group row">
                         <div class="col-sm-6 col-md-6 col-lg-6  ">
                             <span><b>{{ $namePerson_1 }}</b>, It is approved ? @if($item->approve_1 == 1) Yes @else
-                                No @endif</span>
+                                    No @endif</span>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4  ">
                             <div class="avatar">
@@ -102,11 +102,78 @@
                 </div>
             @endif
         @endif
+
+
+        @if($canSeeRef_2)
+
+            @if($item -> approve_2 == null or $item -> person_2 == '')
+                <div class="modal-body">
+
+                    <h4 class="modal-title">Second reference :</h4>
+
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label ">
+                            <span><b>{{ $namePerson_2 }}</b> It is approved ?</span>
+                        </label>
+                        <div class="col-sm-5 ">
+                            <select class="form-control " wire:model.lazy="approve">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label text-danger">Referral To :</label>
+                        <div class="col-sm-5 ">
+                            <select class="form-control " wire:model.lazy="to_id">
+                                @foreach($users as $user)
+                                    @if(is_accounting($user->id))
+                                        <option value="{{ $user->id }}">{{ fullName($user->id) }}</option>
+                                    @endif
+                                @endforeach
+                                <option class="text-danger" value="finish">Finish Referral</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-success" wire:click.privent="save({{$item->id}} , 2)">Save</button>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="modal-body">
+
+                    <h4 class="modal-title">Third reference :</h4>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 col-md-6 col-lg-6  ">
+                            <span><b>{{ $namePerson_2 }}</b>, It is approved ? @if($item->approve_2 == 1) Yes @else
+                                    No @endif</span>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4  ">
+                            <div class="avatar">
+                                <img class="avatar"
+                                     src="{{ asset( $item->signature_2) }}"
+                                     alt="Counter">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-form-label text-danger">
+                            Referral To : <b>{{ fullName($item->person_2) }}</b>
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+        @endif
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary"
                 data-dismiss="modal">Close
         </button>
-<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+        <!--        <button type="button" class="btn btn-primary">Save changes</button>-->
     </div>
 </div>

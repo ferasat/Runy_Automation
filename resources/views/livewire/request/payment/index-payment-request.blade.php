@@ -27,10 +27,12 @@
                                             <span class="name mb-0 text-sm">{{ $item->book_id }}</span>
                                         </a>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="book_id_Modal{{$item->id}}" tabindex="-1" role="dialog"
+                                        <div class="modal fade" id="book_id_Modal{{$item->id}}" tabindex="-1"
+                                             role="dialog"
                                              aria-labelledby="book_id_Modal{{$item->id}}Label" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
-                                                @livewire('request.payment.show-payment-request' , compact('item') , key($item->id))
+                                                @livewire('request.payment.show-payment-request' , compact('item') ,
+                                                key($item->id))
 
                                             </div>
                                         </div>
@@ -41,8 +43,12 @@
                                 </td>
                                 <td>
                               <span class="badge badge-dot mr-4">
-                                <i class="bg-warning"></i>
-                                <span class="status">{{ statusRPay($item->status) }}</span>
+                                @if($item->active)
+                                      <i class="bg-success"></i> Active
+                                  @else
+                                      <i class="bg-danger"></i> Disable
+                                  @endif
+
                               </span>
                                 </td>
                                 <td>
@@ -54,6 +60,7 @@
                         </tbody>
                     @else
                         <tbody class="list">
+
                         @foreach($payment_requests as $item)
                             @if(payReferralToMe(Auth::id() , $item->id ) !== false or $item->user_id == Auth::id())
                                 <tr>
@@ -65,10 +72,13 @@
                                             </a>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="book_id_Modal{{$item->id}}" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="book_id_Modal{{$item->id}}" tabindex="-1"
+                                                 role="dialog"
                                                  aria-labelledby="book_id_Modal{{$item->id}}Label" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                    @livewire('request.payment.show-payment-request' , compact('item'))
+                                                <div class="modal-dialog modal-dialog-centered modal-lg"
+                                                     role="document">
+                                                    @livewire('request.payment.show-payment-request' , compact('item'),
+                                                    key($item->id))
 
                                                 </div>
                                             </div>
@@ -79,7 +89,12 @@
                                     </td>
                                     <td>
                                       <span class="badge badge-dot mr-4">
-                                        <i class="bg-warning"></i>
+                                          @if($item->active)
+                                              <i class="bg-success"></i>
+                                          @else
+                                              <i class="bg-danger"></i>
+                                          @endif
+
                                         <span class="status">{{ $item->status }}</span>
                                       </span>
                                     </td>

@@ -138,7 +138,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('overtime-forms.index') }}">
+                    <a class="nav-link" href="{{ route('over-time-forms.index') }}">
                         <i class="ni ni-pin-3 text-orange"></i> {{ __('Overtime Form') }}
                     </a>
                 </li>

@@ -56,9 +56,8 @@ class NewRequestPayment extends Component
         $newPay->description = $this->description ;
 
         $newPay->status = fullName(Auth::id()).' send to '.fullName($this->to_id) ;
-        //dd($newPay);
+
         if ($newPay->save()){
-            //createReferral(Auth::id(), Auth::id(),$this->to_id,$this->description,'pay',$newPay->id);
 
             $new = new Referral() ;
             $new -> from = Auth::id() ;
