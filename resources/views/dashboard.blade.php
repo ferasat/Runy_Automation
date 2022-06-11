@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app' , ['title' => __('Dashboard')])
 
 @section('content')
     @include('layouts.headers.cards')
@@ -78,6 +78,14 @@
                                                     @livewire('request.correction.show-correction-request' ,
                                                     ['item'=>getInfoRqsAsReferral($item->type_id, 'Correction') ] ,
                                                     key($item->id))
+                                                @elseif($item->type == 'Leave')
+                                                    @livewire('request.forms.show-leave-form' ,
+                                                    ['item'=>getInfoRqsAsReferral($item->type_id, $item->type) ] ,
+                                                    key($item->id))
+                                                @elseif($item->type == 'OverTime')
+                                                    @livewire('request.forms.show-over-time-form' ,
+                                                    ['item'=>getInfoRqsAsReferral($item->type_id, $item->type) ] ,
+                                                    key($item->id))
                                                 @endif
                                             </div>
                                         </div>
@@ -113,49 +121,14 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">
-                                        Facebook
+                                        Payment
                                     </th>
                                     <td>
-                                        1,480
+                                        Your request is accept .
                                     </td>
 
                                 </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Facebook
-                                    </th>
-                                    <td>
-                                        5,480
-                                    </td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Google
-                                    </th>
-                                    <td>
-                                        4,807
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Instagram
-                                    </th>
-                                    <td>
-                                        3,678
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        twitter
-                                    </th>
-                                    <td>
-                                        2,645
-                                    </td>
-
-                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -7,22 +7,27 @@
                        id="Employee" readonly>
             </div>
             <div class="form-group">
-                <label for="over_start" class="form-control-label">Start Date</label>
-                <input class="form-control" type="date" id="over_start" wire:model.lazy="over_start">
-                @error('over_start') <span class="text-danger">This field is required</span> @enderror
+                <label for="over_date" class="form-control-label">Date</label>
+                <input class="form-control" type="date" id="over_date" wire:model.lazy="over_date">
+                @error('over_date') <span class="text-danger">This field is required</span> @enderror
             </div>
             <div class="form-group">
-                <label for="over_start" class="form-control-label">Start Time</label>
+                <label for="over_start_time" class="form-control-label">Start Time</label>
                 <input class="form-control" type="time" id="over_start_time" wire:model.lazy="over_start_time">
+                @error('over_start_time') <span class="text-danger">This field is required</span> @enderror
             </div>
+
             <div class="form-group">
-                <label for="over_end" class="form-control-label">End Date</label>
-                <input class="form-control" type="date" id="over_end" wire:model.lazy="over_end">
-                @error('over_end') <span class="text-danger">This field is required</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="over_end" class="form-control-label">End Time</label>
+                <label for="over_end_time" class="form-control-label">End Time</label>
                 <input class="form-control" type="time" id="over_end_time" wire:model.lazy="over_end_time">
+                @error('over_end_time') <span class="text-danger">This field is required</span> @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="duration" class="form-control-label">Duration</label>
+                <input class="form-control" type="text" id="duration" wire:model.lazy="duration">
+                <span class="text-muted">For example 3 O'clock</span>
+                @error('duration') <span class="text-danger">This field is required</span> @enderror
             </div>
 
             <div class="form-group">

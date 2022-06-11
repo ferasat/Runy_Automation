@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class ShowOverTimeForm extends Component
 {
+    public $item ;
     public function render()
     {
         return view('livewire.request.forms.show-over-time-form');

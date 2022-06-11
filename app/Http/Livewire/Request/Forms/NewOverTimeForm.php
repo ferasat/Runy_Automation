@@ -11,7 +11,7 @@ use Rqs\Models\OvertimeForm;
 
 class NewOverTimeForm extends Component
 {
-    public $over_start, $over_start_time, $over_end, $over_end_time,  $description, $users,$to_id;
+    public $over_start_time,  $over_end_time,  $description, $users,$to_id,$duration,$over_date;
 
     public function mount()
     {
@@ -23,27 +23,29 @@ class NewOverTimeForm extends Component
         return view('livewire.request.forms.new-over-time-form');
     }
     protected $rules = [
-        'over_start' => 'required',
-        'over_end' => 'required',
+        'over_date' => 'required',
+        'over_start_time' => 'required',
+        'over_end_time' => 'required',
+        'duration' => 'required',
     ];
 
     public function updated()
     {
-
+        //dd($this->over_date);
     }
 
     public function saveForm()
     {
-        //dd('save');
         $this->validate();
 
         $newLeave = new OvertimeForm();
         $newLeave->user_id = Auth::id();
-        $newLeave->over_start = $this->over_start;
-        $newLeave->over_start_time = $this->over_start_time;
-        $newLeave->over_end = $this->over_end;
-        $newLeave->over_end_time = $this->over_end_time;
+        $newLeave->date = $this->over_date;
+        $newLeave->start = $this->over_start_time;
+        $newLeave->end = $this->over_end_time;
         $newLeave->description = $this->description;
+        $newLeave->duration = $this->duration;
+        $newLeave->status = 'In progress';
         $newLeave->save();
 
         $new = new Referral() ;
