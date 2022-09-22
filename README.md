@@ -1,8 +1,8 @@
 
 
 <p align="center">
-<a href="#">User management</a>
-<a href="#">Leave form</a>
+<a href="#">User management</a> | 
+<a href="#">Leave form</a> | 
 <a href="#">Overtime form</a>
 </p>
 
